@@ -4,27 +4,30 @@ import Keybord_to_numbers
 class FileHandler:
 
     def __init__(self,
-                 file_loc="C:\\Users\\danie\\Desktop\\Macro_thing\\input.txt",
-                 new_file_loc="C:\\Users\\danie\\Desktop\\Macro_thing\\Macro 2.xml"):
+                 file_loc="C:\\Users\\Dan\\Desktop\\input.txt",
+                 new_file_loc="C:\\Users\\Dan\\Desktop\\Macro 2.xml"):
         self.file = open(file_loc, "r")
         self.new_file = open(new_file_loc, "w")
         Keybord_to_numbers.keys_to_razer_numbers
         self.delay = 10
 
     def input_file(self):
-        f = self.file.readline()
+        line_of_text = self.file.readline()
 
         # True While it is not at the end of the text document
-        while f != "":
-            # Iterate over index
-            for element in range(0, len(f)):
-                # convert letters to the razer numbers
-                if f[element].isupper():
-                    self.is_upper(f[element])
+        while line_of_text != "":
+            # Iterate each charter
+            for element in line_of_text:
+                # convert charter to the razer numbers
+                if element.isupper():
+                    self.is_upper(element)
+                    print(element) # remove code
                 else:
-                    self.not_upper(f[element])
-            f = self.file.readline()
+                    self.not_upper(element)
+                    print(element) # remove code
+            line_of_text = self.file.readline()
 
+    # Puts this at the start of the macro file
     def file_header(self):
         self.new_file.write("""
 <?xml version="1.0" encoding="utf-8"?>
@@ -34,6 +37,7 @@ class FileHandler:
   <MacroEvents>
 """.strip())
 
+    # Puts this at the end of the file
     def file_footer(self):
         self.new_file.write("""
   </MacroEvents>
@@ -42,9 +46,9 @@ class FileHandler:
 </Macro>    
 """)
 
-    # if the chariter is upper case it sould go here to use the sift key
+    # if the character is upper case it should go here to use the sift key
     def is_upper(self, line):
-        print(False)
+        print(True)
         self.new_file.write(f"""
              <MacroEvent>
       <Type>1</Type>
@@ -79,7 +83,7 @@ class FileHandler:
         """)
 
     def not_upper(self, line):
-        print(True)
+        print(False)
         self.new_file.write(f"""
              <MacroEvent>
               <Type>1</Type>
